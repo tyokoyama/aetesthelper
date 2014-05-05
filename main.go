@@ -31,7 +31,9 @@ func main() {
 		log.Fatalln("Appengine SDK PATH not found.")
 	}
 
-	target := flag.Arg(0)
+	// GAE/GのプロジェクトはSDKディレクトリ以下にあることが前提。
+	arg := flag.Arg(0)
+	target := fmt.Sprintf("%s/%s", *sdk_path, arg)
 
 	// GOPATH変数のチェック
 	original_gopath := os.Getenv(GOPATH)
@@ -62,7 +64,7 @@ func main() {
 	}
 
 	// aetest
-	err = os.Chdir("/Users/yokoyama/golang/go_appengine")
+	err = os.Chdir(*sdk_path)
 	if err != nil {
 		panic(err)
 	}
@@ -76,7 +78,7 @@ func main() {
 
 		if targetInfo.IsDir() {
 			fmt.Println(info[i])
-			cmd := exec.Command("./goapp", "test", fmt.Sprintf("./apps/src/carracecockpit/%s", info[i]))
+			cmd := exec.Command("./goapp", "test", fmt.Sprintf("./%s/%s", arg, info[i]))
 
 			cmd.Env = os.Environ()
 			cmd.Stderr = os.Stderr
