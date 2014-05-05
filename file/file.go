@@ -1,9 +1,9 @@
 package file
 
 import (
-	"os"
-	"io/ioutil"
 	"fmt"
+	"io/ioutil"
+	"os"
 	"strings"
 )
 
@@ -62,4 +62,3 @@ func SearchDirectory(target string) (info []string, err error) {
 
 	return
 }
-

@@ -2,9 +2,10 @@ package main
 
 import (
 	"flag"
-	"os"
 	"fmt"
 	"io/ioutil"
+	"log"
+	"os"
 	"os/exec"
 
 	myfile "github.com/tyokoyama/aetesthelper/file"
@@ -13,13 +14,22 @@ import (
 func main() {
 	const GOPATH = "GOPATH"
 	var (
-		info []string
-		path string
-		err error
+		info     []string
+		path     string
+		err      error
+		sdk_path = flag.String("sdk_path", "", "Appengine SDK PATH")
 	)
 
 	// 対象ディレクトリの取得
 	flag.Parse()
+
+	if *sdk_path == "" {
+		flag.PrintDefaults()
+	}
+
+	if _, err := os.Stat(*sdk_path); err != nil {
+		log.Fatalln("Appengine SDK PATH not found.")
+	}
 
 	target := flag.Arg(0)
 
