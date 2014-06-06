@@ -6,7 +6,7 @@
 ## 使い方
 $ aetesthelper -sdk_path="/Users/yokoyama/golang/go_appengine" apps/sampleproject
 
-$ aetesthelper -sdk_path=`pwd` apps/sampleproject
+$ aetesthelper -sdk_path=\`pwd\` apps/sampleproject
 
 ## 注意事項
 1. AppengineのSDKのディレクトリに各プロジェクトがある前提で作っています。
