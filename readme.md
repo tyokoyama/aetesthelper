@@ -6,6 +6,8 @@
 ## 使い方
 $ aetesthelper -sdk_path="/Users/yokoyama/golang/go_appengine" apps/sampleproject
 
+$ aetesthelper -sdk_path=`pwd` apps/sampleproject
+
 ## 注意事項
 1. AppengineのSDKのディレクトリに各プロジェクトがある前提で作っています。
 1. プロジェクト以下の全てのディレクトリに対して、goapp testを実行するので、「no buildable Go source files」が大量に出るかもしれません。
