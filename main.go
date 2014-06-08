@@ -77,21 +77,26 @@ func main() {
 		}
 
 		if targetInfo.IsDir() {
-			fmt.Println(info[i])
-			cmd := exec.Command("./goapp", "test", fmt.Sprintf("./%s/%s", arg, info[i]))
+			if result, err := myfile.SearchGoFiles(fmt.Sprintf("./%s/%s", arg, info[i])); result {
+				cmd := exec.Command("./goapp", "test", fmt.Sprintf("./%s/%s", arg, info[i]))
 
-			cmd.Env = os.Environ()
-			cmd.Stderr = os.Stderr
-			cmd.Stdout = os.Stdout
+				cmd.Env = os.Environ()
+				cmd.Stderr = os.Stderr
+				cmd.Stdout = os.Stdout
 
-			if err = cmd.Start(); err != nil {
+				if err = cmd.Start(); err != nil {
+					panic(err)
+				}
+
+				// if err = cmd.Wait(); err != nil {
+				// 	panic(err)
+				// }
+				cmd.Wait()
+			} else if err != nil {
 				panic(err)
+			} else {
+				fmt.Printf("skip    %s      no go files.\n", info[i])
 			}
-
-			// if err = cmd.Wait(); err != nil {
-			// 	panic(err)
-			// }
-			cmd.Wait()
 		}
 	}
 

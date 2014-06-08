@@ -62,3 +62,19 @@ func SearchDirectory(target string) (info []string, err error) {
 
 	return
 }
+
+// goファイルがあるかどうかチェック。1個でもあればtrueを返す。
+func SearchGoFiles(target string) (result bool, err error) {
+	var fileinfo []os.FileInfo
+
+	result = false
+	fileinfo, err = ioutil.ReadDir(target)
+	for _, info := range fileinfo {
+		if strings.HasSuffix(info.Name(), ".go") {
+			result = true
+			return
+		}
+	}
+
+	return
+}
